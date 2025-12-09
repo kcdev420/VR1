@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nube de Puntos Controlada por Mano</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  </head>
+<body>
+  <div id="app">
+    <video id="video" autoplay playsinline style="display:none"></video>
+    <canvas id="three-canvas"></canvas>
+    <div id="overlay">
+      <h1>Nube interactiva con la mano</h1>
+      <p>Mueve y rota tu mano frente a la cámara para interactuar con la nube de puntos.</p>
+      <p id="status">Inicializando cámara y modelo...</p>
+      <pre id="debug" style="color:#fff;background:rgba(0,0,0,0.6);padding:8px;margin-top:8px;font-size:12px;max-height:160px;overflow:auto;display:none"></pre>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js" onerror="(function(){document.getElementById('debug').style.display='block';document.getElementById('debug').textContent+='Error cargando Three.js\n';})()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" onerror="(function(){document.getElementById('debug').style.display='block';document.getElementById('debug').textContent+='Error cargando MediaPipe Hands\n';})()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" onerror="(function(){document.getElementById('debug').style.display='block';document.getElementById('debug').textContent+='Error cargando MediaPipe Camera Utils\n';})()"></script>
+  <script>
+  (function(){
+    const debugEl = document.getElementById('debug');
+    function show(msg){ debugEl.style.display='block'; debugEl.textContent += msg + '\n'; }
+    try{
+      const c = document.createElement('canvas');
+      const gl = c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl');
+      if(!gl){ show('WebGL no disponible. Prueba con Chrome o Edge y asegúrate de que la aceleración por hardware esté activada.'); }
+      else { show('WebGL detectado correctamente.'); }
+    }catch(e){ show('Error comprobando WebGL: ' + e.message); }
+
+    window.addEventListener('error', function(e){ show('Error: ' + e.message + ' (' + e.filename + ':' + e.lineno + ')'); });
+    const origConsoleErr = console.error.bind(console);
+    console.error = function(...args){ show('Console.error: ' + args.join(' ')); origConsoleErr(...args); }
+  })();
+  </script>
+  <script src="main.js" defer></script>
+</body>
+</html>

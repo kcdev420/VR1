@@ -1,0 +1,5 @@
+html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;background:#000}
+#three-canvas{display:block;width:100vw;height:100vh}
+#overlay{position:fixed;left:12px;top:12px;color:#fff;z-index:10;background:rgba(0,0,0,0.35);padding:10px;border-radius:6px}
+#overlay h1{margin:0;font-size:16px}
+#overlay p{margin:6px 0 0 0;font-size:13px}
