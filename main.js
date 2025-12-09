@@ -21,7 +21,7 @@ camera.position.z = 120;
 const group = new THREE.Group();
 scene.add(group);
 
-const PARTICLES = 10;
+const PARTICLES = 1000;
 const geometry = new THREE.BufferGeometry();
 const positions = new Float32Array(PARTICLES * 3);
 const base = new Float32Array(PARTICLES * 3);
@@ -168,3 +168,4 @@ function onResults(results){
   const scaleTarget = THREE.MathUtils.clamp(1 + (avg - baseline) * 6.0, 0.5, 1.8);
   targetScale += (scaleTarget - targetScale) * 0.2;
 }
+
